@@ -1,0 +1,91 @@
+CREATE TABLE resp_forne 
+( 
+ telefone INT,  
+ email VARCHAR(n),  
+ nome VARCHAR(n),  
+ cpf INT PRIMARY KEY,  
+); 
+
+CREATE TABLE Loja 
+( 
+ Cnpj INT PRIMARY KEY,  
+ Nome VARCHAR(n),  
+ Dona VARCHAR(n),  
+ Endereco VARCHAR(n),  
+ Telefone INT,  
+); 
+
+CREATE TABLE Catalogo1 
+( 
+ Codigo_catalogo INT PRIMARY KEY,  
+ categoria_roupas VARCHAR(n),  
+ Categoria_acessorios VARCHAR(n),  
+ Categoria_sapatos VARCHAR(n),  
+ Categoria_produtos VARCHAR(n),  
+ idLoja_online INT,  
+); 
+CREATE TABLE Recebe 
+( 
+ idCatalogo INT, 
+); 
+
+CREATE TABLE Produto 
+( 
+ Codigo_produto INT PRIMARY KEY, 
+ Preco_venda FLOAT, 
+ Preco_compra FLOAT, 
+ Tamanho VARCHAR(n), 
+ idCompra INT, 
+); 
+
+CREATE TABLE Compra 
+( 
+ idCliente INT, 
+); 
+
+CREATE TABLE Cliente 
+( 
+ Cpf INT PRIMARY KEY, 
+ Nome VARCHAR(n), 
+ Telefone INT, 
+ endereco VARCHAR(n), 
+ Email VARCHAR(n), 
+ idLoja INT, 
+); 
+CREATE TABLE Loja_online 
+( 
+ Instagram VARCHAR(n), 
+ Facebook VARCHAR(n), 
+ Whatsapp INT, 
+); 
+
+CREATE TABLE Loja_fisica 
+( 
+ Codigo_lojafis INT PRIMARY KEY, 
+); 
+
+CREATE TABLE Fornecedor 
+( 
+ Cnpj INT PRIMARY KEY, 
+ Nome VARCHAR(n), 
+ Responsavel_nome VARCHAR(n), 
+ produto_fornecido VARCHAR(n), 
+ endereco VARCHAR(n), 
+ Telefone INT, 
+ Email VARCHAR(n), 
+ idFornece INT, 
+ idresp_forne INT, 
+); 
+CREATE TABLE Fornece 
+( 
+ idProduto INT, 
+); 
+
+ALTER TABLE Catalogo1 ADD FOREIGN KEY(idLoja_online) REFERENCES Loja_online (idLoja_online)
+ALTER TABLE Recebe ADD FOREIGN KEY(idCatalogo) REFERENCES Catalogo1 (idCatalogo)
+ALTER TABLE Produto ADD FOREIGN KEY(idCompra) REFERENCES Compra (idCompra)
+ALTER TABLE Compra ADD FOREIGN KEY(idCliente) REFERENCES Cliente (idCliente)
+ALTER TABLE Cliente ADD FOREIGN KEY(idLoja) REFERENCES Loja (idLoja)
+ALTER TABLE Fornecedor ADD FOREIGN KEY(idFornece) REFERENCES Fornece (idFornece)
+ALTER TABLE Fornecedor ADD FOREIGN KEY(idresp_forne) REFERENCES resp_forne (idresp_forne)
+ALTER TABLE Fornece ADD FOREIGN KEY(idProduto) REFERENCES Produto (idProduto)
